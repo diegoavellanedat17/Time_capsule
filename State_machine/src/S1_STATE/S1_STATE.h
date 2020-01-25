@@ -24,9 +24,9 @@
 	
 	int validDate(int day,int month,int year);;
 	boolean debounceButton(boolean state,int buttonPin);
-	boolean lessThanMonth(int final_year, int final_month, int current_year, int current_month);
-	boolean compareDates(int final_year, int final_month, int final_day, int final_hour, int final_minute, int current_year, int current_month, int current_day, int current_hour, int current_minute);
-	void countdown_date(int final_day, int final_hour, int final_minute, int current_day,int current_hour, int current_minute);
-	
+	boolean lessThanMonth(int final_year, uint8_t final_month, int current_year, uint8_t current_month);
+	boolean compareDates(int final_year, uint8_t final_month, uint8_t final_day, uint8_t final_hour, uint8_t final_minute, int current_year, uint8_t current_month, uint8_t current_day, uint8_t current_hour, uint8_t current_minute);
+	void countdown_date(uint8_t final_day, uint8_t final_hour, uint8_t final_minute, uint8_t current_day,uint8_t current_hour, uint8_t current_minute);
+
 
 #endif

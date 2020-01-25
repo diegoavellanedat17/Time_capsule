@@ -19,8 +19,8 @@ const int REED_SWITCH=10;
 // Variables para el estado de configuración
 int possible_years[]={2020,2021,2022,2023,2024,2025};
 String possible_months[]={"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
-int possible_months_integer[]={1,2,3,4,5,6,7,8,9,10,11,12};
-int possible_days[]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31};
+uint8_t possible_months_integer[]={1,2,3,4,5,6,7,8,9,10,11,12};
+uint8_t possible_days[]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31};
   //Posibles horas, y posibles minutos
 int possible_hours[25];
 int possible_minutes[61]; 
@@ -29,20 +29,20 @@ uint8_t pressed=0;
 uint8_t part=0;
 int final_year;
 String final_month;
-int final_month_integer;
-int final_day;
-int final_minute;
-int final_hour;
-int current_length;
+uint8_t final_month_integer;
+uint8_t final_day;
+uint8_t final_minute;
+uint8_t final_hour;
+uint8_t current_length;
 
 int current_year;
-int current_month;
-int current_day;
-int current_hour;
-int current_minute;
+uint8_t current_month;
+uint8_t current_day;
+uint8_t current_hour;
+uint8_t current_minute;
 
-int SHUT_DOWN_ME=3;
-int SHAKE_SENSOR=2;
+uint8_t SHUT_DOWN_ME=3;
+uint8_t SHAKE_SENSOR=2;
 
 void TimerTask(){
   Serial.println("10 seconds after button was pressed");
