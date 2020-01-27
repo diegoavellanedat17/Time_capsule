@@ -1,6 +1,7 @@
 #include <SimpleTimer.h>
 #include "src/S1_STATE/S1_STATE.h"
 #include "RTClib.h"
+#include <EEPROM.h>
 
 RTC_DS1307 rtc;
 SimpleTimer timer;
@@ -17,17 +18,17 @@ const int REED_SWITCH=10;
 
 
 // Variables para el estado de configuración
-int possible_years[]={2020,2021,2022,2023,2024,2025};
+uint8_t possible_years[]={20,21,22,23,24,25};
 String possible_months[]={"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
 uint8_t possible_months_integer[]={1,2,3,4,5,6,7,8,9,10,11,12};
 uint8_t possible_days[]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31};
   //Posibles horas, y posibles minutos
-int possible_hours[25];
-int possible_minutes[61]; 
+uint8_t possible_hours[25];
+uint8_t possible_minutes[61]; 
 int timer_sleep;
 uint8_t pressed=0;
 uint8_t part=0;
-int final_year;
+uint8_t final_year;
 String final_month;
 uint8_t final_month_integer;
 uint8_t final_day;
@@ -43,6 +44,9 @@ uint8_t current_minute;
 
 uint8_t SHUT_DOWN_ME=3;
 uint8_t SHAKE_SENSOR=2;
+
+//Dirección de guardado en la EEPROM 
+int addr=0;
 
 void TimerTask(){
   Serial.println("10 seconds after button was pressed");
@@ -241,8 +245,15 @@ void loop() {
     char current_day_char[]="DD";
     char current_hour_char[]="hh";
     char current_minute_char[]="mm"; 
+    // lo datos de la memoria EEPROM serían 
+    final_year=EEPROM.read(0);
+    final_month_integer=EEPROM.read(1);
+    final_day=EEPROM.read(2);
+    final_hour=EEPROM.read(3);
+    final_minute=EEPROM.read(4);
 
     current_year=atoi(time.toString(current_year_char));
+    current_year= current_year - 2000;
     current_month=atoi(time.toString(current_month_char));
     current_day=atoi(time.toString(current_day_char));
     current_hour=atoi(time.toString(current_hour_char));
@@ -293,6 +304,14 @@ void loop() {
       state=2;
       Serial.println("Cerrando Cápsula");
       // Guardar en la EEPROM la fecha
+      Serial.println("Guardando inormacion en la EEPROM");
+      
+      EEPROM.write(0,final_year);
+      EEPROM.write(1,final_month_integer);
+      EEPROM.write(2,final_day);
+      EEPROM.write(3,final_hour);
+      EEPROM.write(4,final_minute);
+      
     }
     else{
       Serial.println("Asegurate que la capsula este cierrada");
@@ -301,13 +320,7 @@ void loop() {
     else if(debounceButton(enter_buttonState,enter_button) == LOW && enter_buttonState == HIGH)
   {
        enter_buttonState = LOW;
-  }
-
-  
-  
+  } 
  }
-  
-
-  
-
+ 
 }

@@ -17,6 +17,7 @@ int validDate(int day, int month, int year) {
   
   // Given a day, month, and year (4 digit), returns 
   // the day of year. Errors return 999.
+  year=year+2000;
   
   int daysInMonth[] = {31,28,31,30,31,30,31,31,30,31,30,31};
   
